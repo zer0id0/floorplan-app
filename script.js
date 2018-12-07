@@ -140,6 +140,9 @@ let app = (function () {
             behavior: 'smooth'
         });
 
+        
+        //target.parentNode.scrollTop = target.offsetTop;
+        
         //console.log(target.getBBox());
         //console.log(target.getScreenCTM());
         //console.log(target.getBoundingClientRect());
@@ -150,10 +153,52 @@ let app = (function () {
         //svg.style.top = '-' + (bbox.y) + 'px';
 
         //focus on selected element
-        //svg$.animate({
-        //    width: '500%'
-        //}, 'slow');
-
+        svg$.animate({
+            width: '500%'
+        }, 'slow');
+        
+        
+        //SVGElement.prototype.getTransformToElement = SVGElement.prototype.getTransformToElement || function (elem) {
+        //    return elem.getScreenCTM().inverse().multiply(this.getScreenCTM());
+        //};
+        //
+        //// the main SVG object and its current viewBox
+        //let svg = document.querySelector('#Layer_1');
+        //let bbox = svg.getBBox();
+        //let viewBox = svg.getAttribute('viewBox');
+        //let vbox = viewBox.split(' ');
+        //vbox[0] = parseFloat(vbox[0]);
+        //vbox[1] = parseFloat(vbox[1]);
+        //vbox[2] = parseFloat(vbox[2]);
+        //vbox[3] = parseFloat(vbox[3]);
+//
+        //// the current center of the viewBox
+        //let cx=vbox[0]+vbox[2]/2;
+        //let cy=vbox[1]+vbox[3]/2;
+//
+        //// element is the element I want to zoom to
+        //let element = svg.querySelector('#' + target.id);
+//
+        //let matrix = element.getTransformToElement(svg);
+//
+        //// the new center
+        //let newx = (bbox.x + bbox.width/2)*matrix.a + matrix.e;
+        //let newy = (bbox.y + bbox.height/2)*matrix.d + matrix.f;
+//
+        //// the corresponding top left corner in the current scale
+        //let absolute_offset_x = vbox[0] + newx - cx;
+        //let absolute_offset_y = vbox[1] + newy - cy;
+//
+        //// the new scale
+        //let scale = bbox.width*matrix.a/vbox[2] * 1.2;
+//
+        //let scaled_offset_x = absolute_offset_x + vbox[2]*(1-scale)/2;
+        //let scaled_offset_y = absolute_offset_y + vbox[3]*(1-scale)/2;
+        //let scaled_width = vbox[2]*scale;
+        //let scaled_height = vbox[3]*scale;
+//
+        //svg.setAttribute("viewBox", ""+scaled_offset_x+" "+scaled_offset_y+" "+scaled_width+" "+scaled_height);
+           
     }
 
     function _filterListOfStands(value) {
