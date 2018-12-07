@@ -105,6 +105,11 @@
     color: #fff;
 }
 
+.list-of-stands-active{
+    background: #1c4a7b;
+    color: #fff;
+}
+
 .base-prim {
     font-weight: bold;
     color: #fff;

@@ -12,3 +12,8 @@ text, rect {
 .stand-active{
     fill: rgb(236, 36, 66)
 }
+
+.list-of-stands-active{
+    background-color: #1c4a7b !important;
+    color: #fff
+}

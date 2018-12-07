@@ -99,7 +99,16 @@ let app = (function () {
         let listOptions = document.getElementsByName('list-options');
         listOptions.forEach(e => {
             e.addEventListener('click', () => {
-                _selectStand(document.getElementById('rect-' + e.id))
+                           
+                let sidebar = document.getElementById('sidebar');
+                let activeElements = sidebar.getElementsByClassName('list-of-stands-active');
+                if (activeElements.length > 0) {
+                    activeElements[0].classList.remove("list-of-stands-active");
+                }
+                
+                e.classList.add('list-of-stands-active');
+                
+                _selectStand(document.getElementById('rect-' + e.id));
             })
         });
     }
