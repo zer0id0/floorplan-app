@@ -191,6 +191,17 @@ No media query since this is the default in Bootstrap because it is "mobile firs
  
 /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) {  
+    /* #sidebar{
+        display: inline-block;
+      }
+      #sidebar-btn {
+        display: none;
+
+      } */
+}
+ 
+/* Medium devices (tablets, 768px and up) The navbar toggle appears at this breakpoint */
+@media (min-width: 768px) {  
     #sidebar{
         display: inline-block;
       }
@@ -198,11 +209,7 @@ No media query since this is the default in Bootstrap because it is "mobile firs
         display: none;
 
       }
-}
- 
-/* Medium devices (tablets, 768px and up) The navbar toggle appears at this breakpoint */
-@media (min-width: 768px) {  
- 
+
 }
  
 /* Large devices (desktops, 992px and up) */
@@ -226,30 +233,44 @@ Custom media queries
 @media (max-width: 950px) { 
  
 }
+
+
+
 /* Small devices (landscape phones, 576px down) */
-@media (max-width: 576px) {  
-    
-    #sidebar{
-      width: 100%;
-      position: relative;
-      top: 44px;
-      display: none;
-    }
-
-    #container{
-        width: 100%;
-    }
-
-    .app-container {
-        min-height: 580px
-        
-    }
-
-    .zoom-btn-container {
-        right: 5px;
-        top: 45px;
-    }
+@media (max-width: 575.98px) {  
     
 
 
 }
+
+/* Small devices (landscape phones, less than 768px) */
+@media (max-width: 767.98px) {
+
+        
+    #sidebar{
+        width: 100%;
+        position: relative;
+        top: 44px;
+        display: none;
+      }
+  
+      #container{
+          width: 100%;
+      }
+  
+      .app-container {
+          min-height: 580px
+          
+      }
+  
+      .zoom-btn-container {
+          right: 5px;
+          top: 45px;
+      }
+  }
+
+/* Medium devices (tablets, less than 992px) */
+@media (max-width: 991.98px) {  }
+
+/* Large devices (desktops, less than 1200px) */
+@media (max-width: 1199.98px) {  }
