@@ -95,9 +95,14 @@
     background-color: #f1f1f1;
 }
 
+.list-of-stands>li:hover{
+    background: #ccc;
+    color: #fff;
+}
 
 .list-of-stands>li:active{
     background: #1c4a7b;
+    color: #fff;
 }
 
 .base-prim {
