@@ -1,8 +1,4 @@
 'use strict';
-//let viewBoxX = 0;
-//let viewBoxY = 0;
-//let viewBoxWidth = 1255;
-//let viewBoxHeight = 595.3;
 
 let app = (function () {
 
@@ -13,40 +9,26 @@ let app = (function () {
     let rectElement = document.getElementsByTagName('rect');
     let searchInput = document.getElementById('searchInput');
     let listOfStends = document.getElementById('list-of-stands');
+    let listOptions = listOfStends.childNodes;
+    let sidebar = document.getElementById('sidebar');
 
-    function _setViewBox(viewBoxWidth, viewBoxHeight) {
-        //svg.setAttribute("viewBox", viewBoxX + ' ' + viewBoxY + ' ' + viewBoxWidth + ' ' + viewBoxHeight);
-        svg.style.width = "100%";
-    }
+    function _addEventListeners() {
 
-    function _addIDsForAllTextElements() {
-
+        //add IDs For all text and rect elements
         for (let i = 0; i < textLength; i++) {
             let id = textElement[i].textContent;
             textElement[i].id = id;
 
             //add 'click' event listeners to text elements
-            textElement[i].addEventListener('click', (e) => {
-
-                let target = svg.getElementById('rect-' + id);
-
-                _selectStand(target);
-            });
+            textElement[i].addEventListener('click', (e) => _onRectOrTextClicked(id));
 
             //add 'click' event listeners to rect elements
             if (rectElement['rect-' + i]) {
-                rectElement['rect-' + i].addEventListener('click', (e) => {
-
-                    let target = e.target;
-
-                    _selectStand(target);
-                });
+                rectElement['rect-' + i].addEventListener('click', (e) => _onRectOrTextClicked(e.target.id.slice(5)));
             }
         }
-    }
 
-    function _addEventListeners() {
-
+        //add event listeners for buttons, input and mousewheel
         let zoominBtn = document.getElementById('zoomin');
         let zoomoutBtn = document.getElementById('zoomout');
         let zoomclearBtn = document.getElementById('zoomclear');
@@ -78,7 +60,6 @@ let app = (function () {
                 _zoomIn();
             }
         });
-
     }
 
     function _makeDraggable() {
@@ -86,29 +67,24 @@ let app = (function () {
     }
 
     function _populateListOfStands() {
-        let stands = document.getElementById('list-of-stands');
+
         let lines = '';
 
         for (let i = 0; i < textLength; i++) {
             let id = textElement[i].textContent;
-            lines += '<li class="list-group-item" name="list-options" id="' + id + '">' + id + '</li>';
+            lines += '<li class="list-group-item" id="list-' + id + '">' + id + '</li>';
         }
 
-        stands.innerHTML = lines;
+        listOfStends.innerHTML = lines;
 
-        let listOptions = document.getElementsByName('list-options');
         listOptions.forEach(e => {
             e.addEventListener('click', () => {
-                           
-                let sidebar = document.getElementById('sidebar');
-                let activeElements = sidebar.getElementsByClassName('list-of-stands-active');
-                if (activeElements.length > 0) {
-                    activeElements[0].classList.remove("list-of-stands-active");
-                }
-                
+
+                _unselectAllInSidebar();
+
                 e.classList.add('list-of-stands-active');
-                
-                _selectStand(document.getElementById('rect-' + e.id));
+
+                _selectStand(document.getElementById('rect-' + e.id.slice(5)));
             })
         });
     }
@@ -127,6 +103,7 @@ let app = (function () {
 
         if (!target) return;
 
+        //unselect all rect
         let activeElements = svg.getElementsByClassName('stand-active');
         if (activeElements.length > 0) {
             activeElements[0].classList.remove("stand-active");
@@ -141,6 +118,7 @@ let app = (function () {
     }
 
     function _filterListOfStands(value) {
+
         if (!value) {
             listOfStends.childNodes.forEach(e => e.style.display = 'block');
         } else {
@@ -155,10 +133,29 @@ let app = (function () {
         }
     }
 
+    function _unselectAllInSidebar() {
+        let activeElements = sidebar.getElementsByClassName('list-of-stands-active');
+        if (activeElements.length > 0) {
+            activeElements[0].classList.remove("list-of-stands-active");
+        }
+    }
+
+    function _onRectOrTextClicked(id) {
+        
+        _unselectAllInSidebar();
+        
+        searchInput.value = '';
+        
+        let option = document.getElementById('list-' + id);
+        option.classList.add('list-of-stands-active');
+        
+        _selectStand(svg.getElementById('rect-' + id));
+        
+        listOfStends.scrollTo(0, option.offsetTop - listOfStends.offsetTop);
+    }
+
     return {
         makeDraggable: _makeDraggable,
-        setViewBox: _setViewBox,
-        addIDsForAllTextElements: _addIDsForAllTextElements,
         addEventListeners: _addEventListeners,
         populateListOfStands: _populateListOfStands,
     }
@@ -166,8 +163,6 @@ let app = (function () {
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    app.setViewBox(1255, 595.3);
-    app.addIDsForAllTextElements();
     app.addEventListeners();
     app.makeDraggable();
     app.populateListOfStands();
@@ -183,16 +178,12 @@ document.addEventListener('DOMContentLoaded', () => {
             return false;
         });
     }
-});
 
-//to be used http://interactjs.io/ ...tomorrow
-
-// Toggle sidebar hamburger
-$(function () {
-    $('#sidebar-btn').click(function () {
-        $('#sidebar').toggleClass('visible');
-        //   $('#sidebar-btn').toggleClass('invisibile');
-
+    // Toggle sidebar hamburger
+    $(function () {
+        $('#sidebar-btn').click(function () {
+            $('#sidebar').toggleClass('visible');
+        });
     });
-});
 
+});
