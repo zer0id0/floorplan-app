@@ -151,7 +151,7 @@ let app = (function () {
         
         _selectStand(svg.getElementById('rect-' + id));
         
-        listOfStends.scrollTo(0, option.offsetTop - listOfStends.offsetTop);
+        setTimeout(() => listOfStends.scrollTo(0, option.offsetTop - listOfStends.offsetTop), 500);
     }
 
     return {
