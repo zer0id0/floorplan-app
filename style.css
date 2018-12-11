@@ -2,6 +2,7 @@
     margin: 0 auto;
     padding: 0;
     max-height: 580px;
+    overflow: hidden;
 }
 
 /* SVG */
@@ -62,7 +63,7 @@
     z-index: 2;
     position: absolute;
     right: 25px;
-    top: 56px;
+    top: 3.6rem;
     display: flex;
     flex-flow: column;
 }
@@ -152,7 +153,7 @@
     cursor: pointer;
     margin: 6px;
     position: absolute;
-    top: 50px;
+    top: 3.2rem;
     left: 0;
     z-index: 3;
     background-color: #ebebeb;
@@ -255,7 +256,7 @@ Custom media queries
     #sidebar{
         width: 100%;
         position: relative;
-        top: 44px;
+        top: 2.6rem;
         display: none;
       }
   
@@ -270,7 +271,7 @@ Custom media queries
   
       .zoom-btn-container {
           right: 5px;
-          top: 56px;
+          top: 3.6rem;
       }
   }
 
