@@ -1,7 +1,7 @@
 'use strict';
 
 let app = (function () {
-    let pdfFileName = '/SIGMA 2018 - Sales Plan.pdf';
+    let pdfFileName = '/SIGMA%202018%20-%20Sales%20Plan.pdf';
     let sidebar = document.getElementById('sidebar');
     let searchInput = document.getElementById('searchInput');
 
