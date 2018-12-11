@@ -62,7 +62,7 @@
     z-index: 2;
     position: absolute;
     right: 25px;
-    top: 45px;
+    top: 56px;
     display: flex;
     flex-flow: column;
 }
@@ -152,7 +152,7 @@
     cursor: pointer;
     margin: 6px;
     position: absolute;
-    top: 39px;
+    top: 50px;
     left: 0;
     z-index: 3;
     background-color: #ebebeb;
@@ -270,7 +270,7 @@ Custom media queries
   
       .zoom-btn-container {
           right: 5px;
-          top: 45px;
+          top: 56px;
       }
   }
 
