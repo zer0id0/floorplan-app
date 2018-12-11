@@ -1,26 +1,46 @@
 'use strict';
 
 let app = (function () {
-    let pdfFileName = '/SIGMA 2018 - Sales Plan.pdf';
+    let pdfFileName = 'https://zer0id0.github.io/floorplan-app/SIGMA%202018%20-%20Sales%20Plan.pdf';
     let sidebar = document.getElementById('sidebar');
     let searchInput = document.getElementById('searchInput');
+    let inactiveText = [
+        'WORKSHOP',
+        'ROOM',
+        'FOOD',
+        'COURT',
+        'SMOKING',
+        'LOUNGE AREA',
+        'CONFERENCE'
+    ];
 
+    /*
+     * Add ids and click event listners to all <rect> and <text> elements of SVG
+     **/
     function _addIDsAndClickEventListners() {
 
-        let textElement = document.getElementsByTagName('text');
-        let textLength = textElement.length;
-        let rectElement = document.getElementsByTagName('rect');
+        let textElements = document.getElementsByTagName('text');
+        let rectElements = document.getElementsByTagName('rect');
 
-        for (let i = 0; i < textLength; i++) {
-            let id = textElement[i].textContent;
-            textElement[i].id = id;
+        //loop throught all rect elements in svg
+        for (let re of rectElements) {
 
-            //add 'click' event listeners to text elements
-            textElement[i].addEventListener('click', (e) => _onRectOrTextClicked(id));
+            let rectBCR = re.getBoundingClientRect();
 
-            //add 'click' event listeners to rect elements
-            if (rectElement['rect-' + i]) {
-                rectElement['rect-' + i].addEventListener('click', (e) => _onRectOrTextClicked(e.target.id.slice(5)));
+            //find text element placed inside rect   
+            for (let te of textElements) {
+
+                let textBCR = te.getBoundingClientRect();
+                if (textBCR.x > rectBCR.x && textBCR.y > rectBCR.y && textBCR.x + textBCR.width < rectBCR.x + rectBCR.width && textBCR.y + textBCR.height < rectBCR.y + rectBCR.height) {
+
+                    if (!inactiveText.some(substr => te.innerHTML.includes(substr))) {
+                        re.id = 'rect-' + te.innerHTML;
+                        te.id = 'text-' + te.innerHTML;
+
+                        re.addEventListener('click', (e) => _onRectOrTextClicked(re.id));
+                        te.addEventListener('click', (e) => _onRectOrTextClicked(e.target.id.slice(te.id)));
+                    }
+                }
             }
         }
     }
@@ -94,7 +114,7 @@ let app = (function () {
 
                 e.classList.add('list-of-stands-active');
 
-                _selectStand(document.getElementById('rect-' + e.id.slice(5)));
+                _selectStand(document.getElementById('rect-' + e.id.slice(5)), false);
             })
         });
     }
@@ -111,7 +131,7 @@ let app = (function () {
         svg.style.width = +currentWidth.slice(0, -1) + 20 + '%';
     }
 
-    function _selectStand(target) {
+    function _selectStand(target, scroll) {
 
         if (!target) return;
 
@@ -126,14 +146,16 @@ let app = (function () {
 
         target.classList.add('stand-active');
 
-        let option = document.getElementById('list-' + target.id.slice(5));
-        option.classList.add('list-of-stands-active');
-        let listOfStends = document.getElementById('list-of-stands');
-        listOfStends.scrollTo(0, option.offsetTop - listOfStends.offsetTop);
+        if (scroll) {
+            let option = document.getElementById('list-' + target.id.slice(5));
+            if (option) {
+                option.classList.add('list-of-stands-active');
+                let listOfStends = document.getElementById('list-of-stands');
+                listOfStends.scrollTo(0, option.offsetTop - listOfStends.offsetTop);
+            }
+        }
 
-        //svg$.animate({
-        //    width: '300%'
-        //}, 'fast'); //, 'slow'
+        //svg$.animate({ width: '300%'}, 'fast'); //, 'slow'
         svg.style.width = '400%';
 
         target.scrollIntoView({
@@ -173,11 +195,13 @@ let app = (function () {
 
         searchInput.value = '';
 
-        let option = document.getElementById('list-' + id);
-        option.classList.add('list-of-stands-active');
+        let option = document.getElementById('list-' + id.slice(5));
+        if (option) {
+            option.classList.add('list-of-stands-active');
+        }
 
         let svg = document.getElementById('Layer_1');
-        _selectStand(svg.getElementById('rect-' + id));
+        _selectStand(svg.getElementById('rect-' + id.slice(5)), true);
     }
 
     return {
