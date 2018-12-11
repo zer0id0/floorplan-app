@@ -11,10 +11,18 @@ rect {
 }
 
 .stand-active {
-    fill: rgb(236, 36, 66)
+    fill: rgb(236, 36, 66) !important
 }
 
 .list-of-stands-active {
     background-color: #1c4a7b !important;
     color: #fff
+}
+
+#sidebar{
+    width: 100%;
+}
+
+.form-control{
+    margin-bottom: 0px
 }
