@@ -1,7 +1,7 @@
 'use strict';
 
 let app = (function () {
-
+    let pdfFileName = '/SIGMA 2018 - Sales Plan.pdf';
     let sidebar = document.getElementById('sidebar');
     let searchInput = document.getElementById('searchInput');
 
@@ -62,7 +62,7 @@ let app = (function () {
         });
 
         downloadAsPDF.addEventListener('click', (e) => {
-            //...
+            window.open(pdfFileName, '_blank')
         });
     }
 
@@ -130,15 +130,15 @@ let app = (function () {
         option.classList.add('list-of-stands-active');
         let listOfStends = document.getElementById('list-of-stands');
         listOfStends.scrollTo(0, option.offsetTop - listOfStends.offsetTop);
-        
+
         //svg$.animate({
         //    width: '300%'
         //}, 'fast'); //, 'slow'
         svg.style.width = '400%';
-        
+
         target.scrollIntoView({
-                block: 'center',
-                behavior: 'smooth' //behavior: "auto"  | "instant" | "smooth"
+            block: 'center',
+            behavior: 'smooth' //behavior: "auto"  | "instant" | "smooth"
         });
 
     }
@@ -207,5 +207,14 @@ document.addEventListener('DOMContentLoaded', () => {
             return false;
         });
     }
+
+    // Toggle sidebar hamburger
+    $(function () {
+        $('#sidebar-btn').click(function () {
+            $('#sidebar').toggleClass('visible');
+            //   $('#sidebar-btn').toggleClass('invisibile');
+
+        });
+    });
 
 });
