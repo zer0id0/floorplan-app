@@ -1,7 +1,7 @@
 'use strict';
 
 let app = (function () {
-    let pdfFileName = '/SIGMA%202018%20-%20Sales%20Plan.pdf';
+    let pdfFileName = 'https://zer0id0.github.io/floorplan-app/SIGMA%202018%20-%20Sales%20Plan.pdf';
     let sidebar = document.getElementById('sidebar');
     let searchInput = document.getElementById('searchInput');
 
