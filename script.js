@@ -1,7 +1,7 @@
 'use strict';
 
 let app = (function () {
-
+    let pdfFileName = '/SIGMA 2018 - Sales Plan.pdf';
     let sidebar = document.getElementById('sidebar');
     let searchInput = document.getElementById('searchInput');
 
@@ -62,7 +62,7 @@ let app = (function () {
         });
 
         downloadAsPDF.addEventListener('click', (e) => {
-            //...
+            window.open(pdfFileName,'_blank')
         });
     }
 
