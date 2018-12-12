@@ -87,36 +87,34 @@ let app = (function () {
 
         searchInput.addEventListener('keyup', (e) => _filterListOfStands(e.target.value));
 
-        //$('#Layer_1').bind('mousewheel', function (e) {
-        //
-        //    if (e.originalEvent.wheelDelta / 120 > 0) {
-        //        _zoomOut();
-        //    } else {
-        //        _zoomIn();
-        //    }
-        //});
+        $('#Layer_1').bind('mousewheel', function (e) {
+        
+            if (e.originalEvent.wheelDelta / 120 > 0) {
+                _zoomOut();
+            } else {
+                _zoomIn();
+            }
+        });
 
         downloadAsPDF.addEventListener('click', (e) => {
             window.open(pdfFileName, '_blank')
         });
 
-
-        let svg = document.getElementById('Layer_1');
-        svg.addEventListener('gesturechange', function (e) {
-
-            if (e.scale > 1) {
-                //zoom in 
-                //increase the size of image according to the e.scale
-                let currentWidth = svg.style.width || '100%';
-                svg.style.width = +currentWidth.slice(0, -1) + 20 + '%';
-            } else if (e.scale < 1) {
-                //zoom out 
-                //decrease the size of image according to the e.scale
-                let currentWidth = svg.style.width || '100%';
-                svg.style.width = +currentWidth.slice(0, -1) - 20 + '%';
-            }
-        });
-
+        //let svg = document.getElementById('Layer_1');
+        //svg.addEventListener('gesturechange', function (e) {
+//
+        //    if (e.scale > 1) {
+        //        //zoom in 
+        //        //increase the size of image according to the e.scale
+        //        let currentWidth = svg.style.width || '100%';
+        //        svg.style.width = +currentWidth.slice(0, -1) + 20 + '%';
+        //    } else if (e.scale < 1) {
+        //        //zoom out 
+        //        //decrease the size of image according to the e.scale
+        //        let currentWidth = svg.style.width || '100%';
+        //        svg.style.width = +currentWidth.slice(0, -1) - 20 + '%';
+        //    }
+        //});
 
     }
 
@@ -272,4 +270,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (typeof window.orientation !== "undefined" || navigator.userAgent.indexOf('IEMobile') !== -1) {} else {
         app.openNav();
     }
+    
+    new PinchZoom.default(document.getElementById('Layer_1'), {});
 });
