@@ -113,7 +113,7 @@ let app = (function () {
 
         for (let i = 0; i < textLength; i++) {
             let id = textElement[i].textContent;
-            lines += '<li class="list-group-item" id="list-' + id + '">' + id + '</li>';
+            lines += '<li class="list-group-item" id="list-' + id + '"> ID'+ id + ' | ' + id + '</li>';
         }
 
         let listOfStends = document.getElementById('list-of-stands');
