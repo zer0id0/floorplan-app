@@ -27,7 +27,13 @@ rect {
     margin-bottom: 0px
 }
 .hamburger{
-        z-index: 1;
+    z-index: 1;
     position: absolute;
-    background: #1234
+    background: #fff;
+    top: 0.2rem;
+    left: 0.2rem;
+    color: #000;
+    width: 44px;
+    text-align: center;
+    border: 2px solid #000;
 }

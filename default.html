@@ -15,7 +15,7 @@
             z-index: 1;
             top: 0;
             left: 0;
-            background-color: #111;
+            background-color: #1c4a7b;
             overflow-x: hidden;
             transition: 0.5s;
             /* padding-top: 60px; */
@@ -23,12 +23,13 @@
         }
 
         .sidenav a {
-            padding: 8px 8px 8px 32px;
+            padding: 8px 8px 8px 8px;
             text-decoration: none;
             font-size: 25px;
-            color: #818181;
             display: block;
             transition: 0.3s;
+            background: #1c4a7b;
+            color: #fff;
         }
 
         .sidenav a:hover {
@@ -37,7 +38,8 @@
 
         .sidenav .closebtn {
             text-align: end;
-            font-size: x-large;
+            display: inline-block;
+            /* font-size: x-large; */
         }
 
         @media screen and (max-height: 450px) {
@@ -68,12 +70,13 @@
         </button>
     </div>
     <nav role="navigation" class="navbar navbar-default navbar-static-top fl-navbar-border base-prim">
+        <div></div>
         Floorplan App
         <button type="button" class="btn btn-secondary" id="download-as-pdf-btn">View as PDF</button>
     </nav>
 
     <div id="side-nav" class="sidenav">
-        <a href="javascript:void(0)" class="closebtn" onclick="app.closeNav()" style="">&times;</a>
+        <a href="javascript:void(0)" class="closebtn" onclick="app.closeNav()" style="">&#8592;</a>
 
         <div id="sidebar">
             <div class="input-group">
