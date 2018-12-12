@@ -101,19 +101,17 @@ let app = (function () {
         });
 
 
-
+        let svg = document.getElementById('Layer_1');
         svg.addEventListener('gesturechange', function (e) {
 
             if (e.scale > 1) {
                 //zoom in 
                 //increase the size of image according to the e.scale
-                let svg = document.getElementById('Layer_1');
                 let currentWidth = svg.style.width || '100%';
                 svg.style.width = +currentWidth.slice(0, -1) + 20 + '%';
             } else if (e.scale < 1) {
                 //zoom out 
                 //decrease the size of image according to the e.scale
-                let svg = document.getElementById('Layer_1');
                 let currentWidth = svg.style.width || '100%';
                 svg.style.width = +currentWidth.slice(0, -1) - 20 + '%';
             }
