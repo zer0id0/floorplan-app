@@ -88,7 +88,7 @@ let app = (function () {
         searchInput.addEventListener('keyup', (e) => _filterListOfStands(e.target.value));
 
         //$('#Layer_1').bind('mousewheel', function (e) {
-//
+        //
         //    if (e.originalEvent.wheelDelta / 120 > 0) {
         //        _zoomOut();
         //    } else {
@@ -99,6 +99,27 @@ let app = (function () {
         downloadAsPDF.addEventListener('click', (e) => {
             window.open(pdfFileName, '_blank')
         });
+
+
+
+        svg.addEventListener('gesturechange', function (e) {
+
+            if (e.scale > 1) {
+                //zoom in 
+                //increase the size of image according to the e.scale
+                let svg = document.getElementById('Layer_1');
+                let currentWidth = svg.style.width || '100%';
+                svg.style.width = +currentWidth.slice(0, -1) + 20 + '%';
+            } else if (e.scale < 1) {
+                //zoom out 
+                //decrease the size of image according to the e.scale
+                let svg = document.getElementById('Layer_1');
+                let currentWidth = svg.style.width || '100%';
+                svg.style.width = +currentWidth.slice(0, -1) - 20 + '%';
+            }
+        });
+
+
     }
 
     function _makeDraggable() {
@@ -148,7 +169,7 @@ let app = (function () {
     function _zoomOut() {
         let svg = document.getElementById('Layer_1');
         let currentWidth = svg.style.width || '100%';
-        svg.style.width = +currentWidth.slice(0, -1) + 20 + '%';       
+        svg.style.width = +currentWidth.slice(0, -1) + 20 + '%';
         //scale = scale + .5;
         //svg.style.transform = 'scale(' + scale + ')';
     }
