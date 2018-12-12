@@ -221,8 +221,7 @@
         </thead>
 
         <tbody>
-            <!-- ng-repeat alternative for faster DOM rendering -->
-            <!-- slyRepeat: searchOb in eListCtrl.filteredSearchItems --><tr sly-repeat="searchOb in eListCtrl.filteredSearchItems" style="cursor: pointer;" scroll-on-need-if="searchOb.isSelected == true" ng-click="eListCtrl.listRowOnTouchEvent(searchOb)" ng-class="{'select-row':searchOb.isSelected == true,
+            <tr sly-repeat="searchOb in eListCtrl.filteredSearchItems" style="cursor: pointer;" scroll-on-need-if="searchOb.isSelected == true" ng-click="eListCtrl.listRowOnTouchEvent(searchOb)" ng-class="{'select-row':searchOb.isSelected == true,
                            'select-row-favorite':searchOb.isFavorite}" class="ng-scope">
 
                 <td ng-style="{background:searchOb.colorField}" uib-tooltip="Branding" tooltip-append-to-body="true" tooltip-placement="right" style="border-right: 1px solid lightgray; background: rgb(195, 214, 155);" ng-show="eListCtrl.crtView.showStandType==true" class="ng-hide"></td>

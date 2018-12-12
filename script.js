@@ -1,6 +1,7 @@
 'use strict';
 
 let app = (function () {
+    var scale = 1;
     let pdfFileName = 'https://zer0id0.github.io/floorplan-app/SIGMA%202018%20-%20Sales%20Plan.pdf';
     let sidebar = document.getElementById('sidebar');
     let searchInput = document.getElementById('searchInput');
@@ -76,6 +77,7 @@ let app = (function () {
             svg.style.width = '100%';
             svg.style.left = '0px';
             svg.style.top = '0px';
+            //svg.style.transform = 'scale(1)';
         });
 
         document.getElementById('clear-search-btn').addEventListener('click', () => {
@@ -85,14 +87,14 @@ let app = (function () {
 
         searchInput.addEventListener('keyup', (e) => _filterListOfStands(e.target.value));
 
-        $('#Layer_1').bind('mousewheel', function (e) {
-
-            if (e.originalEvent.wheelDelta / 120 > 0) {
-                _zoomOut();
-            } else {
-                _zoomIn();
-            }
-        });
+        //$('#Layer_1').bind('mousewheel', function (e) {
+//
+        //    if (e.originalEvent.wheelDelta / 120 > 0) {
+        //        _zoomOut();
+        //    } else {
+        //        _zoomIn();
+        //    }
+        //});
 
         downloadAsPDF.addEventListener('click', (e) => {
             window.open(pdfFileName, '_blank')
@@ -113,7 +115,7 @@ let app = (function () {
 
         for (let i = 0; i < textLength; i++) {
             let id = textElement[i].textContent;
-            lines += '<li class="list-group-item" id="list-' + id + '"> ID'+ id + ' | ' + id + '</li>';
+            lines += '<li class="list-group-item" id="list-' + id + '"> ID' + id + ' | ' + id + '</li>';
         }
 
         let listOfStends = document.getElementById('list-of-stands');
@@ -136,12 +138,19 @@ let app = (function () {
         let svg = document.getElementById('Layer_1');
         let currentWidth = svg.style.width || '100%';
         svg.style.width = +currentWidth.slice(0, -1) - 20 + '%';
+        //if (scale > 0.5) {
+        //    scale = scale - .5;
+        //    svg.style.transform = 'scale(' + scale + ')';
+        //}
+
     }
 
     function _zoomOut() {
         let svg = document.getElementById('Layer_1');
         let currentWidth = svg.style.width || '100%';
-        svg.style.width = +currentWidth.slice(0, -1) + 20 + '%';
+        svg.style.width = +currentWidth.slice(0, -1) + 20 + '%';       
+        //scale = scale + .5;
+        //svg.style.transform = 'scale(' + scale + ')';
     }
 
     function _selectStand(target, scroll) {
