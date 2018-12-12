@@ -134,13 +134,14 @@ let app = (function () {
 
     function _zoomIn() {
         let svg = document.getElementById('Layer_1');
-        let currentWidth = svg.style.width;
+        let currentWidth = svg.style.width || '100%';
         svg.style.width = +currentWidth.slice(0, -1) - 20 + '%';
     }
 
     function _zoomOut() {
         let svg = document.getElementById('Layer_1');
-        let currentWidth = svg.style.width;
+        let currentWidth = svg.style.width || '100%';
+        console.log(currentWidth);
         svg.style.width = +currentWidth.slice(0, -1) + 20 + '%';
     }
 
