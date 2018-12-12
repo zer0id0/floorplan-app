@@ -115,7 +115,6 @@ let app = (function () {
         //        svg.style.width = +currentWidth.slice(0, -1) - 20 + '%';
         //    }
         //});
-
     }
 
     function _makeDraggable() {
@@ -271,5 +270,5 @@ document.addEventListener('DOMContentLoaded', () => {
         app.openNav();
     }
     
-    new PinchZoom.default(document.getElementById('Layer_1'), {});
+    //new PinchZoom.default(document.getElementById('Layer_1'), {});
 });
