@@ -141,7 +141,6 @@ let app = (function () {
     function _zoomOut() {
         let svg = document.getElementById('Layer_1');
         let currentWidth = svg.style.width || '100%';
-        console.log(currentWidth);
         svg.style.width = +currentWidth.slice(0, -1) + 20 + '%';
     }
 
@@ -247,16 +246,22 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         
         //show sidebar by default
-        app.openNav();
+        //app.openNav();
     }
 
     // Toggle sidebar hamburger
-    $(function () {
-        $('#sidebar-btn').click(function () {
-            $('#sidebar').toggleClass('visible');
-            //   $('#sidebar-btn').toggleClass('invisibile');
+    //$(function () {
+    //    $('#sidebar-btn').click(function () {
+    //        $('#sidebar').toggleClass('visible');
+    //        //   $('#sidebar-btn').toggleClass('invisibile');
+//
+    //    });
+    //});
 
-        });
+    $('#container').on('scroll touchmove mousewheel', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
     });
-
+    
 });
