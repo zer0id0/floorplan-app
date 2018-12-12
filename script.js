@@ -88,7 +88,7 @@ let app = (function () {
         searchInput.addEventListener('keyup', (e) => _filterListOfStands(e.target.value));
 
         $('#Layer_1').bind('mousewheel', function (e) {
-        
+
             if (e.originalEvent.wheelDelta / 120 > 0) {
                 _zoomOut();
             } else {
@@ -102,7 +102,7 @@ let app = (function () {
 
         //let svg = document.getElementById('Layer_1');
         //svg.addEventListener('gesturechange', function (e) {
-//
+        //
         //    if (e.scale > 1) {
         //        //zoom in 
         //        //increase the size of image according to the e.scale
@@ -153,7 +153,11 @@ let app = (function () {
     function _zoomIn() {
         let svg = document.getElementById('Layer_1');
         let currentWidth = svg.style.width || '100%';
-        svg.style.width = +currentWidth.slice(0, -1) - 50 + '%';
+        let increase = 50;
+        if (typeof window.orientation !== "undefined" || navigator.userAgent.indexOf('IEMobile') !== -1) {} else {
+            increase = 100;
+        }
+        svg.style.width = +currentWidth.slice(0, -1) - increase + '%';
         //if (scale > 0.5) {
         //    scale = scale - .5;
         //    svg.style.transform = 'scale(' + scale + ')';
@@ -164,7 +168,11 @@ let app = (function () {
     function _zoomOut() {
         let svg = document.getElementById('Layer_1');
         let currentWidth = svg.style.width || '100%';
-        svg.style.width = +currentWidth.slice(0, -1) + 50 + '%';
+        let increase = 50;
+        if (typeof window.orientation !== "undefined" || navigator.userAgent.indexOf('IEMobile') !== -1) {} else {
+            increase = 100;
+        }
+        svg.style.width = +currentWidth.slice(0, -1) + increase + '%';
         //scale = scale + .5;
         //svg.style.transform = 'scale(' + scale + ')';
     }
@@ -194,7 +202,10 @@ let app = (function () {
         }
 
         //svg$.animate({ width: '300%'}, 'fast'); //, 'slow'
-        svg.style.width = '400%';
+        let currentWidth = svg.style.width || '100%';
+        if (+currentWidth.slice(0, -1) < 500) {
+            svg.style.width = '500%';
+        }
 
         target.scrollIntoView({
             block: 'center',
@@ -269,6 +280,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (typeof window.orientation !== "undefined" || navigator.userAgent.indexOf('IEMobile') !== -1) {} else {
         app.openNav();
     }
-    
+
     //new PinchZoom.default(document.getElementById('Layer_1'), {});
 });
