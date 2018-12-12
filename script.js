@@ -153,7 +153,7 @@ let app = (function () {
     function _zoomIn() {
         let svg = document.getElementById('Layer_1');
         let currentWidth = svg.style.width || '100%';
-        svg.style.width = +currentWidth.slice(0, -1) - 20 + '%';
+        svg.style.width = +currentWidth.slice(0, -1) - 50 + '%';
         //if (scale > 0.5) {
         //    scale = scale - .5;
         //    svg.style.transform = 'scale(' + scale + ')';
@@ -164,7 +164,7 @@ let app = (function () {
     function _zoomOut() {
         let svg = document.getElementById('Layer_1');
         let currentWidth = svg.style.width || '100%';
-        svg.style.width = +currentWidth.slice(0, -1) + 20 + '%';
+        svg.style.width = +currentWidth.slice(0, -1) + 50 + '%';
         //scale = scale + .5;
         //svg.style.transform = 'scale(' + scale + ')';
     }
