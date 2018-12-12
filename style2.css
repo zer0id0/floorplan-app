@@ -37,3 +37,16 @@ rect {
     text-align: center;
     border: 2px solid #000;
 }
+
+i {
+    margin-left: 8px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 7px;
+}
+
+.arrow-left {
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+}

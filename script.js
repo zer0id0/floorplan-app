@@ -153,28 +153,16 @@ let app = (function () {
     function _zoomIn() {
         let svg = document.getElementById('Layer_1');
         let currentWidth = svg.style.width || '100%';
-        let increase = 50;
-        if (typeof window.orientation !== "undefined" || navigator.userAgent.indexOf('IEMobile') !== -1) {} else {
-            increase = 100;
+        if (currentWidth.slice(0,-1) > 40) {
+            svg.style.width = currentWidth.slice(0,-1) - 40 + '%';
         }
-        svg.style.width = +currentWidth.slice(0, -1) - increase + '%';
-        //if (scale > 0.5) {
-        //    scale = scale - .5;
-        //    svg.style.transform = 'scale(' + scale + ')';
-        //}
 
     }
 
     function _zoomOut() {
         let svg = document.getElementById('Layer_1');
         let currentWidth = svg.style.width || '100%';
-        let increase = 50;
-        if (typeof window.orientation !== "undefined" || navigator.userAgent.indexOf('IEMobile') !== -1) {} else {
-            increase = 100;
-        }
-        svg.style.width = +currentWidth.slice(0, -1) + increase + '%';
-        //scale = scale + .5;
-        //svg.style.transform = 'scale(' + scale + ')';
+        svg.style.width = +currentWidth.slice(0, -1) + 40 + '%';
     }
 
     function _selectStand(target, scroll) {
