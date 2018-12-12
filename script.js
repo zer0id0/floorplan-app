@@ -12,7 +12,14 @@ let app = (function () {
         'COURT',
         'SMOKING',
         'LOUNGE AREA',
-        'CONFERENCE'
+        'CONFERENCE',
+        '2',
+        '3',
+        '4',
+        '5',
+        '6',
+        '7',
+        '8'
     ];
 
     let sideNav = document.getElementById("side-nav");
@@ -25,6 +32,16 @@ let app = (function () {
         sideNav.style.width = "0";
     }
 
+    function _removeDuplicatedRect() {
+        let g = document.getElementById('Layer_1_g');
+        let rects = g.getElementsByClassName('st12');
+        console.log(rects);
+        while (rects[0]) {
+            console.log('remove');
+            g.removeChild(rects[0]);
+        }
+    }
+    
     /*
      * Add ids and click event listners to all <rect> and <text> elements of SVG
      **/
@@ -33,6 +50,7 @@ let app = (function () {
         let textElements = document.getElementsByTagName('text');
         let rectElements = document.getElementsByTagName('rect');
 
+        var count = 0;
         //loop throught all rect elements in svg
         for (let re of rectElements) {
 
@@ -45,13 +63,19 @@ let app = (function () {
 
                 if ((textBCR.x > rectBCR.x && textBCR.y > rectBCR.y) &&
                     (textBCR.y + textBCR.height < rectBCR.y + rectBCR.height && textBCR.x + textBCR.width < rectBCR.x + rectBCR.width)) {
-
+                    //console.log('in');
                     if (!inactiveText.some(substr => te.innerHTML.includes(substr))) {
-                        re.id = 'rect-' + te.innerHTML;
-                        te.id = 'text-' + te.innerHTML;
-
-                        re.addEventListener('click', (e) => _onRectOrTextClicked(re.id));
-                        te.addEventListener('click', (e) => _onRectOrTextClicked(e.target.id.slice(te.id)));
+                        
+                        ////re.id = 'rect-' + te.innerHTML;
+                        //te.id = 'text-' + te.innerHTML;
+                        
+                        count++;
+                        //re.id = 'rect-' + count;
+                        te.id = 'text-' + count;
+                        
+                        console.log(te.id);
+                        //re.addEventListener('click', (e) => _onRectOrTextClicked(re.id));
+                        //te.addEventListener('click', (e) => _onRectOrTextClicked(e.target.id.slice(te.id)));
                     }
                 }
             }
@@ -153,8 +177,8 @@ let app = (function () {
     function _zoomIn() {
         let svg = document.getElementById('Layer_1');
         let currentWidth = svg.style.width || '100%';
-        if (currentWidth.slice(0,-1) > 40) {
-            svg.style.width = currentWidth.slice(0,-1) - 40 + '%';
+        if (currentWidth.slice(0, -1) > 40) {
+            svg.style.width = currentWidth.slice(0, -1) - 40 + '%';
         }
 
     }
@@ -243,6 +267,7 @@ let app = (function () {
 
     return {
 
+        removeDuplicatedRect: _removeDuplicatedRect,
         openNav: _openNav,
         closeNav: _closeNav,
         addIDsAndClickEventListners: _addIDsAndClickEventListners,
@@ -254,6 +279,7 @@ let app = (function () {
 
 document.addEventListener('DOMContentLoaded', () => {
 
+    app.removeDuplicatedRect();
     app.addIDsAndClickEventListners();
     app.addEventListeners();
     app.makeDraggable();
@@ -268,6 +294,4 @@ document.addEventListener('DOMContentLoaded', () => {
     if (typeof window.orientation !== "undefined" || navigator.userAgent.indexOf('IEMobile') !== -1) {} else {
         app.openNav();
     }
-
-    //new PinchZoom.default(document.getElementById('Layer_1'), {});
 });

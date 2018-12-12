@@ -50,3 +50,8 @@ i {
   transform: rotate(135deg);
   -webkit-transform: rotate(135deg);
 }
+
+/*  new SVG   */
+text{
+   stroke: black !important;
+}
