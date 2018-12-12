@@ -258,10 +258,15 @@ document.addEventListener('DOMContentLoaded', () => {
     //    });
     //});
 
-    $('#container').on('scroll touchmove mousewheel', function (e) {
-        e.preventDefault();
-        e.stopPropagation();
-        return false;
-    });
     
+    //$('#container').on('scroll touchmove mousewheel', function (e) {
+    //    e.preventDefault();
+    //    e.stopPropagation();
+    //    return false;
+    //});
+    
+    
+    if(typeof window.orientation !== "undefined" || navigator.userAgent.indexOf('IEMobile') !== -1){
+        alert('mobile');
+    }
 });
