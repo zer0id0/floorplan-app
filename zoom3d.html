@@ -1,84 +1,48 @@
 <!DOCTYPE html>
 <html>
-    <head>
-    	<title>Zoom3d</title>
-    	<meta charset="utf-8"/>
-        <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="./main.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-        <script src="./jquery.zoom3d.js"></script>
-    </head>
-    <body>
-        <div id="zoom3d">
-            <div id="content">
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Donec dignissim erat non consequat malesuada. Interdum et
-                    malesuada fames ac ante ipsum primis in faucibus. Curabitur
-                    nisl sapien, mollis sit amet ligula a, condimentum tempus
-                    odio. Duis at imperdiet metus, ac gravida erat. Vivamus
-                    bibendum odio quis dolor euismod, vel vulputate eros
-                    iaculis. Cras mi felis, commodo eu tempor et, tempor at
-                    quam. Praesent feugiat elit venenatis ligula sodales
-                    accumsan. Pellentesque tempus est non nibh gravida
-                    vestibulum. Praesent vitae ultrices est. Curabitur leo
-                    augue, tincidunt in sollicitudin eget, vestibulum sed sem.
-                    Nulla facilisi. Nam vestibulum vestibulum sem, eu sodales
-                    nulla interdum nec. Ut auctor orci a sapien fermentum, vel
-                    congue arcu placerat.
-                </p>
-                <p>
-                    Cras gravida ipsum eu purus scelerisque, vitae sodales nisl
-                    suscipit. Etiam quis aliquet sapien. Ut consequat sapien id
-                    augue condimentum, at pellentesque nisl semper. Nam eget
-                    tellus consectetur, pulvinar enim ut, iaculis urna. Nam diam
-                    arcu, pellentesque vitae augue sed, lacinia feugiat risus.
-                    In hac habitasse platea dictumst. Curabitur est felis,
-                    viverra a purus eu, eleifend egestas eros.
-                </p>
-                <p>
-                    Integer lacinia erat vitae lectus auctor rutrum. Aenean
-                    pellentesque eleifend orci vitae finibus. Suspendisse
-                    sollicitudin tellus dapibus massa posuere efficitur id
-                    rutrum nisi. Pellentesque ultricies est ac pharetra
-                    porttitor. Sed quis nibh ligula. Fusce ligula lorem,
-                    condimentum fermentum lectus a, iaculis feugiat tellus.
-                    Phasellus non diam dignissim, iaculis diam et, pharetra
-                    arcu. Praesent aliquam cursus arcu at scelerisque. In sed
-                    erat dignissim, tristique felis vel, molestie nulla. Donec
-                    imperdiet elit id arcu tempus pulvinar. Fusce elit urna,
-                    molestie ut tincidunt vitae, efficitur id eros. Etiam
-                    ullamcorper nec nunc pellentesque iaculis.
-                </p>
-                <p>
-                    Quisque efficitur ante nibh, nec molestie metus vehicula
-                    sed. Nulla bibendum at sapien a dapibus. Proin quis ipsum
-                    consequat, fermentum quam ut, fermentum justo. Integer
-                    feugiat dolor turpis, nec porttitor orci dapibus sit amet.
-                    Donec convallis congue nisl, in lacinia arcu efficitur et.
-                    Proin in ultricies tellus. Phasellus tempus sapien ac cursus
-                    ullamcorper. Proin non accumsan elit, sit amet faucibus
-                    urna. Aliquam aliquam tellus eu varius vestibulum.
-                    Phasellus ac tellus dolor. Donec quis accumsan lacus.
-                    Pellentesque habitant morbi tristique senectus et netus et
-                    malesuada fames ac turpis egestas. Maecenas ornare malesuada
-                    libero, quis sollicitudin turpis volutpat quis. Donec
-                    molestie felis nulla, a blandit lacus dapibus eget.
-                    Interdum et malesuada fames ac ante ipsum primis in
-                    faucibus. Nulla lobortis quis diam id ullamcorper.
-                </p>
-            </div>
-        </div>
-        <script>
-            $(function () {
-                $("#zoom3d").zoom3d({
-                    content: "#content",
-                    translate3d: true,
-                    onScale: function (scale) {
-                        $("#zoom3d").attr("data-scale", ("Scale: " + Math.round(scale * 100) + "%"));
-                    }
+
+<head>
+    <title>Zoom3d</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="./main.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="./jquery.zoom3d.js"></script>
+</head>
+
+<body>
+
+    <p>AAAAAAAAAAAA</p>
+    <div id="wrap">
+        <img id="image" src="http://placekitten.com/640/480" />
+    </div>
+
+    <script>
+        // Zoom in
+        var clicks = 0;
+        $('#wrap').on("click", function(e) {
+            clicks++; //count clicks
+            if (clicks === 1) {
+                e.preventDefault();
+                $('#wrap img').each(function(index) {
+                    $(this).animate({
+                        width: $(this).width() * 1.25,
+                        height: $(this).height() * 1.25
+                    });
+
+                });
+            }
+        }).on("dblclick", function(e) {
+            e.preventDefault();
+
+            $('#wrap img').each(function(index) {
+                $(this).animate({
+                    width: $(this).width() / 1.25,
+                    height: $(this).height() / 1.25
                 });
             });
-        </script>
-    </body>
+        });
+    </script>
+</body>
+
 </html>
