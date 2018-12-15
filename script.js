@@ -16,6 +16,9 @@ let app = (function () {
 
     let sideNav = document.getElementById("side-nav");
 
+    let svg = document.getElementById('Layer_1');
+    let svg$ = $('#Layer_1');
+    
     function _openNav() {
         sideNav.style.width = "250px";
     }
@@ -23,7 +26,7 @@ let app = (function () {
     function _closeNav() {
         sideNav.style.width = "0";
     }
-    
+
     /*
      * Add ids and click event listners to all <rect> and <text> elements of SVG
      **/
@@ -31,7 +34,14 @@ let app = (function () {
 
         let textElements = document.getElementsByTagName('text');
         let rectElements = document.getElementsByTagName('rect');
+        /* this is required duy to error in borders of <text> and <rect> elements
+            some times text outside rect, sometimes inside */
+        let dispersion = 2;
 
+        let count = 0;
+
+        let lines = '';
+        //let liRectMapping = [];
         //loop throught all rect elements in svg
         for (let re of rectElements) {
 
@@ -42,20 +52,49 @@ let app = (function () {
 
                 let textBCR = te.getBoundingClientRect();
 
-                if ((textBCR.x > rectBCR.x && textBCR.y > rectBCR.y) &&
-                    (textBCR.y + textBCR.height < rectBCR.y + rectBCR.height && textBCR.x + textBCR.width < rectBCR.x + rectBCR.width)) {
-
+                if ((textBCR.x + dispersion > rectBCR.x && textBCR.y + dispersion > rectBCR.y) &&
+                    (textBCR.x + textBCR.width < rectBCR.x + dispersion + rectBCR.width && textBCR.y + textBCR.height < rectBCR.y + dispersion + rectBCR.height)) {
                     if (!inactiveText.some(substr => te.innerHTML.includes(substr))) {
 
-                        re.id = 'rect-' + te.innerHTML;
-                        te.id = 'text-' + te.innerHTML;
-                        re.addEventListener('click', (e) => _onRectOrTextClicked(re.id));
-                        te.addEventListener('click', (e) => _onRectOrTextClicked(e.target.id.slice(te.id)));
+                        if (re.id) {
+
+                            te.id = 'text2-' + re.id.slice(5);
+                            te.addEventListener('click', (e) => _onRectOrTextClicked(re.id));
+                            
+                        } else {
+
+                            re.id = 'rect-' + count;
+                            te.id = 'text-' + count;
+                            re.addEventListener('click', (e) => _onRectOrTextClicked(re.id));
+                            te.addEventListener('click', (e) => _onRectOrTextClicked(re.id));
+
+                            lines += '<li class="list-group-item" id="list-' + count + '">' + te.innerHTML + ' | </li>';
+                        }
+
+                        count++;
                     }
                 }
             }
-
         }
+
+        //populate sidebar list
+        let listOfStends = document.getElementById('list-of-stands');
+        let listOptions = listOfStends.childNodes;
+        listOfStends.innerHTML = lines;
+
+        listOptions.forEach(e => {
+
+            let text2 = svg.getElementById('text2-' + e.id.slice(5));
+            if(text2){
+                e.innerHTML += text2.innerHTML;
+            }
+            
+            e.addEventListener('click', () => {
+                _unselectAllInSidebar();
+                e.classList.add('list-of-stands-active');
+                _selectStand(document.getElementById('rect-' + e.id.slice(5)), false);
+            })
+        });
     }
 
     function _addEventListeners() {
@@ -72,7 +111,7 @@ let app = (function () {
         zoomoutBtn.addEventListener('click', () => _zoomOut());
 
         zoomclearBtn.addEventListener('click', () => {
-            let svg = document.getElementById('Layer_1');
+
             svg.style.width = '100%';
             svg.style.left = '0px';
             svg.style.top = '0px';
@@ -98,22 +137,6 @@ let app = (function () {
         downloadAsPDF.addEventListener('click', (e) => {
             window.open(pdfFileName, '_blank')
         });
-
-        //let svg = document.getElementById('Layer_1');
-        //svg.addEventListener('gesturechange', function (e) {
-        //
-        //    if (e.scale > 1) {
-        //        //zoom in 
-        //        //increase the size of image according to the e.scale
-        //        let currentWidth = svg.style.width || '100%';
-        //        svg.style.width = +currentWidth.slice(0, -1) + 20 + '%';
-        //    } else if (e.scale < 1) {
-        //        //zoom out 
-        //        //decrease the size of image according to the e.scale
-        //        let currentWidth = svg.style.width || '100%';
-        //        svg.style.width = +currentWidth.slice(0, -1) - 20 + '%';
-        //    }
-        //});
     }
 
     function _makeDraggable() {
@@ -150,7 +173,6 @@ let app = (function () {
     }
 
     function _zoomIn() {
-        let svg = document.getElementById('Layer_1');
         let currentWidth = svg.style.width || '100%';
         if (currentWidth.slice(0, -1) > 40) {
             svg.style.width = currentWidth.slice(0, -1) - 40 + '%';
@@ -159,7 +181,6 @@ let app = (function () {
     }
 
     function _zoomOut() {
-        let svg = document.getElementById('Layer_1');
         let currentWidth = svg.style.width || '100%';
         svg.style.width = +currentWidth.slice(0, -1) + 40 + '%';
     }
@@ -167,9 +188,6 @@ let app = (function () {
     function _selectStand(target, scroll) {
 
         if (!target) return;
-
-        let svg = document.getElementById('Layer_1');
-        let svg$ = $('#Layer_1');
 
         //unselect all rect
         let activeElements = svg.getElementsByClassName('stand-active');
@@ -208,7 +226,7 @@ let app = (function () {
             listOfStends.childNodes.forEach(e => e.style.display = 'block');
         } else {
             listOfStends.childNodes.forEach(e => {
-                if (e.innerHTML.indexOf(value) != -1) {
+                if (e.innerHTML.toLocaleLowerCase().indexOf(value.toLocaleLowerCase()) != -1) {
                     e.style.display = 'block';
 
                 } else {
@@ -236,7 +254,6 @@ let app = (function () {
             option.classList.add('list-of-stands-active');
         }
 
-        let svg = document.getElementById('Layer_1');
         _selectStand(svg.getElementById('rect-' + id.slice(5)), true);
     }
 
@@ -256,7 +273,7 @@ document.addEventListener('DOMContentLoaded', () => {
     app.addIDsAndClickEventListners();
     app.addEventListeners();
     app.makeDraggable();
-    app.populateListOfStands();
+    //app.populateListOfStands();
 
     //$('#container').on('scroll touchmove mousewheel', function (e) {
     //    e.preventDefault();
