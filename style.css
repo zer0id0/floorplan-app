@@ -466,6 +466,7 @@ text {
 }
 
 /* fixed header, hamburger, +- buttons */
+/*
 .navbar,
 .hamburger {
     position: fixed;
@@ -485,3 +486,4 @@ text {
 .zoom-btn-container{
     position: fixed;
 }
+*/
